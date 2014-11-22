@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Jigsaw Puzzle by Raymond Hill: An HTML5 &lt;canvas&gt;-based jigsaw puzzle</title>
+<title>Jigsaw Puzzle Collection APP</title>
 <meta name="Keywords" lang="en" content="HTML5, &lt;canvas&gt;, jigsaw, puzzle, javascript, raymond hill"/>
 <script type="text/javascript" src="jigsawpuzzle-cordova.js"></script>
 <script type="text/javascript">
 <!--
 function initAll(){
-	var tabs=["Solve","Presets","Create","Share","About"];
+	var tabs=["Solve","Presets","Create","Share","Help","About"];
 	self.puzzleGadgetTabs=new self.gadgets.TabSet("Solve");
 	for (var i in tabs) {
 		var id=tabs[i];
@@ -39,7 +39,7 @@ img:hover {border:1px solid #ccc;border-right-color:#888;border-bottom-color:#88
 </style>
 </head>
 <body id="puzzleRoot">
-<div id="tabHeaderContainer" style="border:0;padding:0.5em;"><div id="puzzleTabHeaderSolve" class="tabHeaderOn">Solve</div><div id="puzzleTabHeaderPresets" class="tabHeaderOff">Presets</div><div id="puzzleTabHeaderCreate" class="tabHeaderOff">Create</div><div id="puzzleTabHeaderShare" class="tabHeaderOff">Share</div><div id="puzzleTabHeaderAbout" class="tabHeaderOff">About</div>
+<div id="tabHeaderContainer" style="border:0;padding:0.5em;"><div id="puzzleTabHeaderSolve" class="tabHeaderOn">Solve</div><div id="puzzleTabHeaderPresets" class="tabHeaderOff">Presets</div><div id="puzzleTabHeaderCreate" class="tabHeaderOff">Create</div><div id="puzzleTabHeaderShare" class="tabHeaderOff">Share</div><div id="puzzleTabHeaderHelp" class="tabHeaderOff">Help</div><div id="puzzleTabHeaderAbout" class="tabHeaderOff">About</div>
 </div>
 
 <div id="tabContentContainer" style="border:1px solid #888;padding:4px">
@@ -52,28 +52,18 @@ img:hover {border:1px solid #ccc;border-right-color:#888;border-bottom-color:#88
 <p>This page requires Javascript to display properly, however Javascript is disabled or your browser doesn't support Javascript.</p></noscript>
 <canvas id="puzzleCanvas">
 <p style="margin-bottom:0">This Jigsaw Puzzle game requires that your browser supports the <a target="_blank" href="http://en.wikipedia.org/wiki/Canvas_(HTML_element)">HTML5 &lt;canvas&gt; element</a>. See <a target="_blank" href="http://en.wikipedia.org/wiki/Canvas_(HTML_element)">Wikipedia</a> for information on which browsers support the <u>HTML5 &lt;canvas&gt;</u> technology. Google code offers <a href="http://code.google.com/p/explorercanvas/">ExplorerCanvas</a> to bring the functionality of the &lt;canvas&gt; tag to Internet Explorer, unfortunately, complex clipping regions are not supported, a requirement for this software.</p>
-<p><img src="jigsawpuzzle-rhill-gadget-snapshot.png" alt="Snapshot"/> <br/><small>Thumbnail preview</small></p>
 </canvas>
 </div>
+<!--
 <audio id="puzzleSnap1" autobuffer><source src="sounds/12842__schluppipuppie__klick_01.ogg" /><source src="sounds/12842__schluppipuppie__klick_01.wav" /></audio>
 <audio id="puzzleSnap2" autobuffer><source src="sounds/12843__schluppipuppie__klick_02.ogg" /><source src="sounds/12843__schluppipuppie__klick_02.wav" /></audio>
 <audio id="puzzleClap1"><source src="sounds/35102_m1rk0_applause_5sec.ogg" /><source src="sounds/35102_m1rk0_applause_5sec.mp3" /></audio>
 <audio id="puzzleClap2"><source src="sounds/35104_m1rk0_applause_8sec.ogg" /><source src="sounds/35104_m1rk0_applause_8sec.mp3" /></audio>
 <audio id="puzzleClap3"><source src="sounds/60789_J.Zazvurek_Applause_9s.ogg" /><source src="sounds/60789_J.Zazvurek_Applause_9s.mp3" /></audio>
+-->
 <div style="margin-top:1em;">
 <input id="puzzleShowEdges" style="width:12em;padding:3px;border:solid 1px #333;" type="button" value="Show edge pieces only" onclick="javascript:this.toggleEdges();"/>
 <input id="puzzleShowPreview" style="width:12em;padding:3px;border:solid 1px #333;" type="button" value="Show preview" onclick="javascript:this.togglePreview();"/>
-</div>
-<div style="margin-top:1em;font-size:11px;color:#777">
-How to play:
-<ul style="margin-top:0;">
-<li>Click on a piece to move it, click again to release it</li>
-<li><b>Left</b> and <b>right</b> arrows (or alternatively <b>'A'</b> or <b>'D'</b>, or <b>mousewheel</b>) to rotate a piece</li>
-<li><b>Up</b> and <b>down</b> arrows (or alternatively <b>'W'</b> or <b>'S'</b>) to send a piece behind or on top of other pieces</li>
-<li><b>'E'</b> to toggle on/off visibility of non-edge pieces</li>
-<li><b>'Q'</b> to show/hide preview tile</li>
-<li><b>Space bar</b> to show/hide non-composite pieces (pieces made up of two or more atomic pieces)</li>
-</ul>
 </div>
 </div>
 </div>
@@ -88,7 +78,9 @@ Preferred screen size:&nbsp;<select id="puzzlePreferredSize">
 <option value="h1600">2560&times;1600</option>
 </select><br/>
 Preferred number of pieces:&nbsp;<select id="puzzlePreferredNumPieces">
-<option value="25" selected="selected">25</option>
+<option value="10">10</option>
+<option value="20" selected="selected">20</option>
+<option value="30">30</option>
 <option value="50">50</option>
 <option value="100">100</option>
 <option value="200">200</option>
@@ -892,7 +884,7 @@ Click on a thumbnail below to create a jigsaw puzzle with the above settings.
 <table style="margin-top:1em;font-family:tahoma,sans-serif;font-size:12px">
 <tr><td style="vertical-align:top">Cut&nbsp;</td><td style="vertical-align:top"><select id="puzzleCut"><option value="classic" selected="selected">Classic</option><option value="straight">Straight</option><option value="tenon">Tenon</option><option value="wave">Wave</option></select></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
-<tr><td style="white-space:nowrap;vertical-align:top">Screen size&nbsp;</td><td style="vertical-align:top"><select id="puzzleScreenSize"><option value="h600">800&times;600</option><option value="h768">1024&times;768</option><option value="h1024" selected="selected">1280&times;1024</option><option value="h1050">1680&times;1050</option><option value="h1200">1920&times;1200</option></select>
+<tr><td style="white-space:nowrap;vertical-align:top">Screen size&nbsp;</td><td style="vertical-align:top"><select id="puzzleScreenSize"><option value="h600" selected="selected">800&times;600</option><option value="h768">1024&times;768</option><option value="h1024">1280&times;1024</option><option value="h1050">1680&times;1050</option><option value="h1200">1920&times;1200</option></select>
 <span style="color:#888">(Screen size determine work area size, which determine puzzle size, which influence the size of individual pieces)</span></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td style="white-space:nowrap;vertical-align:top">Suggested number of pieces&nbsp;</td><td style="vertical-align:top"><input id="puzzlePieces" type="text" size="2" maxlength="3" value="16"/>
@@ -900,7 +892,7 @@ Click on a thumbnail below to create a jigsaw puzzle with the above settings.
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td style="white-space:nowrap;vertical-align:top">Complexity of puzzle pieces&nbsp;</td><td style="vertical-align:top"><select id="puzzleComplexity"><option value="0">Regular</option><option value="1" selected="selected">Slightly irregular</option><option value="3">Moderatly irregular</option><option value="8">Very irregular</option></select></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
-<tr><td style="white-space:nowrap;vertical-align:top">Whether pieces can be rotated&nbsp;</td><td style="vertical-align:top"><select id="puzzleRotate"><option value="1">No rotation</option><option value="4">Rotate 90&deg;</option><option value="24" selected="selected">Rotate fully</option></select></td></tr>
+<tr><td style="white-space:nowrap;vertical-align:top">Whether pieces can be rotated&nbsp;</td><td style="vertical-align:top"><select id="puzzleRotate"><option value="1" selected="selected">No rotation</option><option value="4">Rotate 90&deg;</option><option value="24">Rotate fully</option></select></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td style="white-space:nowrap;vertical-align:top">URL of picture to use&nbsp;</td><td style="vertical-align:top"><input id="puzzleURL" type="text" size="80" maxlength="256" value=""/>
 <span style="color:#888">(Of interest: <a target="_blank" href="http://en.wikipedia.org/wiki/Public_domain_image_resources#General_collections">general collections of public domain images</a>)</span></td></tr>
@@ -913,10 +905,8 @@ Click on a thumbnail below to create a jigsaw puzzle with the above settings.
 
 <div id="puzzleTabShare" style="display:none">
 <div style="margin-top:1em;font-family:tahoma,sans-serif;font-size:12px">
-<p>You can generate a <b>permalink</b> of the current state of your puzzle (progress included!):<br/>
-<input id="puzzleGeneratePermalink" style="width:9em;padding:3px;border:solid 1px #333;" type="button" value="Create permalink" onclick="javascript:this.generatePuzzlePermalink();"/>&nbsp;<input id="puzzlePermalink" style="padding:3px;" type="text" size="100" readonly="readonly" value="" onclick="javascript:this.focus();this.select();"/></p>
 <p style="display:none"><a id="puzzleEmailTo" href="mailto:?subject=Have%20fun%20with%20this%20jigsaw%20puzzle!&amp;body=http%3A%2F%2Fwww.raymondhill.net%2Fpuzzle-rhill%2Fjigsawpuzzle-rhill.php">Email this permalink to...</a></p>
-<p>Alternatively, you can generate a <b>Jigsaw Puzzle Key</b> identifying uniquely the current state of your puzzle (progress included!):<br/>
+<p>You can generate a <b>Jigsaw Puzzle Key</b> identifying uniquely the current state of your puzzle (progress included!):<br/>
 <input id="puzzleGenerateKey" style="width:9em;padding:3px;border:solid 1px #333;" type="button" value="Generate key" onclick="javascript:this.generatePuzzleKey();"/>&nbsp;<input id="puzzleKeyOut" style="padding:3px;" type="text" size="100" readonly="readonly" value="" onclick="javascript:this.focus();this.select();"/><br/><span style="font-size:11px;color:#999">(Be sure to copy <b>all</b> the characters!)</span></p>
 <p>You can save this key for later use, or you can send this key to a friend, who can then use it to generate the same puzzle on his side.</p>
 <p>A friend sent you a <b>Jigsaw Puzzle Key</b>? Enter it here to generate his/her custom-made jigsaw puzzle in your &ldquo;Solve&rdquo; tab:<br/>
@@ -925,41 +915,37 @@ Click on a thumbnail below to create a jigsaw puzzle with the above settings.
 </div>
 </div>
 
+<div id="puzzleTabHelp" style="display:none;">
+<div style="margin-top:1em;font-size:11px;color:#777">
+How to play:
+<ul style="margin-top:0;">
+<li><b>Drag</b> a piece to move it</li>
+<li><b>Left</b> and <b>right</b> arrows (or alternatively <b>'A'</b> or <b>'D'</b>, or <b>mousewheel</b>) to rotate a piece</li>
+<li><b>Up</b> and <b>down</b> arrows (or alternatively <b>'W'</b> or <b>'S'</b>) to send a piece behind or on top of other pieces</li>
+<li><b>'E'</b> to toggle on/off visibility of non-edge pieces</li>
+<li><b>'Q'</b> to show/hide preview tile</li>
+<li><b>Space bar</b> to show/hide non-composite pieces (pieces made up of two or more atomic pieces)</li>
+</ul>
+</div>
+</div>
+
 <div id="puzzleTabAbout" style="display:none;">
-<div style="margin-top:1em;font-family:tahoma,sans-serif;font-size:12px">
-<p>Jigsaw Puzzle by <a href="http://www.raymondhill.net/">Raymond Hill</a>: <a target="_top" href="http://www.raymondhill.net/puzzle-rhill/">Project's Home page</a></p>
-<p>I started this project as an experiment with the <a href="http://en.wikipedia.org/wiki/Canvas_(HTML_element)">HTML5 canvas</a> element.
-It grew a bit bigger than what I had imagined, as I kept adding features, just for the fun and challenge of dealing with geometrical concepts.
-Also, for jigsaw puzzle fans out there, I am just happy to enable you to create your own puzzle, small or big, easy or hard, and with no strings attached (no ads, no questions asked, etc.)</p>
-<p>I am currently working on the next release in which I would like to allow fancy tiling.</p>
-<p>Portions of this software use the work of...</p>
-<ul>
- <li style="margin-top:0.25em;">Images:<ul>
-  <li><a target="_blank" href="http://www.publicdomainpictures.net/view-image.php?image=376">&ldquo;Autumn Fruits&rdquo;, by Petr Kratochvil</a>: The default picture used in preview mode.</li>
-  <li><a target="_blank" href="http://www.publicdomainpictures.net/view-image.php?image=2876">&ldquo;Melbourne Australia&rdquo;, by Michael Stirling</a>: The default picture used in full mode.</li>
-  </ul></li>
- <li style="margin-top:0.25em;">Sound effects:<ul style="margin-bottom:0.5em;">
-  <li><a target="_blank" href="http://www.freesound.org/">The Freesound Project</a>'s <a target="_blank" href="http://www.freesound.org/samplesViewSingle.php?id=12842">&ldquo;klick - 01.wav&rdquo;</a>, by <a target="_blank" href="http://www.freesound.org/usersViewSingle.php?id=4942">Marcus Horndt</a></li>
-  <li><a target="_blank" href="http://www.freesound.org/">The Freesound Project</a>'s <a target="_blank" href="http://www.freesound.org/samplesViewSingle.php?id=12843">&ldquo;klick - 02.wav&rdquo;</a>, by <a target="_blank" href="http://www.freesound.org/usersViewSingle.php?id=4942">Marcus Horndt</a></li>
-  <li><a target="_blank" href="http://www.freesound.org/">The Freesound Project</a>'s <a target="_blank" href="http://www.freesound.org/samplesViewSingle.php?id=35102">&ldquo;applause_5sec.wav&rdquo;</a>, by <a target="_blank" href="http://www.freesound.org/usersViewSingle.php?id=140756">Mirko Horstmann</a></li>
-  <li><a target="_blank" href="http://www.freesound.org/">The Freesound Project</a>'s <a target="_blank" href="http://www.freesound.org/samplesViewSingle.php?id=35104">&ldquo;applause_5sec.wav&rdquo;</a>, by <a target="_blank" href="http://www.freesound.org/usersViewSingle.php?id=140756">Mirko Horstmann</a></li>
-  <li><a target="_blank" href="http://www.freesound.org/">The Freesound Project</a>'s <a target="_blank" href="http://www.freesound.org/samplesViewSingle.php?id=60789">&ldquo;Applause 9s.mp3&rdquo;</a>, by <a target="_blank" href="http://www.freesound.org/usersViewSingle.php?id=199526">J.Zazvurek</a></li>
-  </ul></li>
- <li style="margin-top:0.25em;">Software:<ul>
-  <li><a target="_blank" href="http://www.schillmania.com/projects/soundmanager2/">&ldquo;SoundManager 2&rdquo;, by Scott Schiller</a>: An excellent library that brings audio functionality to Javascript. <span style="color:#f77">No longer used in the latest version, HTML5 &lt;audio&gt; tag is now used.</span></li>
-  <li><a target="_blank" href="http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/">&ldquo;Calculating the area and centroid of a polygon&rdquo;, by Paul Bourke</a>: For his code snippets on how to calculate the centroid of a polygon (necessary to be able to rotate pieces properly.)</li>
-  <li><a target="_blank" href="http://www.webtoolkit.info/javascript-base64.html">&ldquo;Javascript base64&rdquo;</a>: For the code snippet on how to encode/decode <a href="http://en.wikipedia.org/wiki/Base64">Base 64</a> (I used Base 64 to encode/decode Jigsaw Puzzle Keys, the current mechanism to share custom-made puzzles.</li>
-  <li><a target="_blank" href="http://www.quirksmode.org/js/events_properties.html#position">&ldquo;Event properties / Mouse position&rdquo;, by Peter-Paul Koch</a>: For his code snippet on how to correctly detect mouse coordinates.</li>
-  </ul></li>
- </ul>
+<div style="border-style:solid;border-width:1px;margin-top:1em;">
+<div style="margin:1em;font-family:tahoma,sans-serif;font-size:12px;text-align:justify;">
+<p>This software is based on <a href="http://www.raymondhill.net/puzzle-rhill/">Jigsaw Puzzle</a> by <a href="http://www.raymondhill.net/">Raymond Hill</a>. It is a version adapted to mobile devices and with many more puzzles included. All modifications are done by <a href="https://github.com/rggarcia/">Ramón González</a>.</p>
+<p>This program is sublicensed under <a rel="license" href="http://www.gnu.org/copyleft/gpl.html">GPLv3 license</a>.
+</div>
+</div>
+
+<div style="border-style:solid;border-width:1px;margin-top:1em;">
+<div style="margin:1em;font-family:tahoma,sans-serif;font-style:italic;font-size:12px;text-align:justify;">
 <p><a href="http://www.raymondhill.net/">Jigsaw Puzzle by Raymond Hill</a> is licensed under a <a rel="license" href="http://www.opensource.org/licenses/mit-license.php">MIT License (MIT)</a>:</p>
-<blockquote>
 <p>Copyright (c) 2009-2011 Raymond Hill</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-</blockquote>
 </p>
+</div>
 </div>
 </div>
 

@@ -1849,18 +1849,18 @@ function Puzzle(id,puzzleOptions) {
 	this.create = function(puzzleOptions) {
 		// use default options if none specified
 		var defaultOptions={
-			view:'full',
+			view:'mini',
 			cut:'classic',
-			screenSize:'h768',
-			src:'http://www.raymondhill.net/puzzle-rhill/images/full-IMG_1731.jpg',
+			screenSize:'h600',
+			src:'puzzles/flickr/by-nc/philippeguillaume/full-4042595991_31b1fb0d22_o.jpg',
 			numPieces:{full:25,mini:10},
 			complexity:1,
-			numRotateSteps:{full:24,mini:1},
+			numRotateSteps:{full:1,mini:1},
 			showPreview:false};
 		// validate configurable parameters
 		this.config={};
 		this.config.view=(puzzleOptions&&puzzleOptions.view)?puzzleOptions.view:defaultOptions.view;
-		this.config.cookieName='jigsawpuzzle_rhill_'+this.config.view;
+		this.config.cookieName='jigsawpuzzle_app_'+this.config.view;
 		// if no options specified, load persisted state
 		if (!puzzleOptions) {
 			puzzleOptions=this.restoreKey(this.config.cookieName);
@@ -2264,8 +2264,6 @@ function Puzzle(id,puzzleOptions) {
 			if (!targetBbox.doesIntersect(part.getDisplayBboxConst())) {continue;}
 			// test if it's a match
 			if (!part.snapPiece(target)) {continue;}
-			// pieces fit together
-			this['puzzleSnap'+(self.Math.round(self.Math.random())+1)].play();
 			// remember which pieces are clustered together, for persistence
 			if (!this.composites) {this.composites={};}
 			this.composites[part.id]=part;
@@ -2412,11 +2410,6 @@ function Puzzle(id,puzzleOptions) {
 	this.puzzleGenerateKey['generatePuzzleKey']=function(){
 		me.puzzleKeyOut.value=me.generateKey();
 		};
-	this.puzzleGeneratePermalink['generatePuzzlePermalink']=function(){
-		var loc=self.location;
-		var url=(!self.gadgets.fake?'http://www.raymondhill.net/puzzle-rhill/jigsawpuzzle-rhill.php':loc.protocol+'//'+loc.host+loc.pathname)+'?puzzleKey='+me.generateKey();
-		me.puzzlePermalink.value=url;
-		};
 	this.puzzleKeyInCreate['createPuzzleFromKey']=function(){
 		var input=me.puzzleKeyIn.value;
 		if (input.length>0) {
@@ -2440,7 +2433,7 @@ function Puzzle(id,puzzleOptions) {
 			showPreview:false
 			};
 		var prefs=new self.gadgets.Prefs();
-		prefs.set("jigsawpuzzle_rhill_prefs",'{"size":"'+me.puzzlePreferredSize.value+'","numPieces":'+me.puzzlePreferredNumPieces.value+'}');
+		prefs.set("jigsawpuzzle_app_prefs",'{"size":"'+me.puzzlePreferredSize.value+'","numPieces":'+me.puzzlePreferredNumPieces.value+'}');
 		me.create(parms);
 		self.puzzleGadgetTabs.setSelectedTab(0);
 		me.markAsDirty();
@@ -2458,7 +2451,7 @@ function Puzzle(id,puzzleOptions) {
 	// event handlers
 	//
 	gadgets.addEventListener(self,'unload',function(){me.unload();});
-	this.canvas.onclick = function(e) {
+	this.canvas.onmouseup = function(e) {
 		var imoved=me.imoved;
 		me.imoved=-1;
 		if (imoved>= 0) {
@@ -2471,7 +2464,11 @@ function Puzzle(id,puzzleOptions) {
 			me.draw();
 			this.style.cursor="-moz-grab";
 			}
-		else {
+		};
+	this.canvas.onmousedown = function(e) {
+		var imoved=me.imoved;
+		me.imoved=-1;
+		if (imoved<0) {
 			var pos=me.normalizeEventPos(e);
 			var ipart=me.partUnderPoint(pos);
 			if (ipart>=0) {
