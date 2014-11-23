@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.puzzapp.html5" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Jigsaw Puzzle Collection</name>
+    <description>
+        More than 100 puzzles.
+    </description>
+    <author href="https://github.com/rggarcia/">
+        Ramón González
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+
+    <preference name="orientation" value="landscape" />
+
+    <icon src="www/res/icon-xhdpi.png" />
+    <icon src="www/res/icon-ldpi.png" density="ldpi" />
+    <icon src="www/res/icon-mdpi.png" density="mdpi" />
+    <icon src="www/res/icon-hdpi.png" density="hdpi" />
+    <icon src="www/res/icon-xhdpi.png" density="xhdpi" />
+
+    <preference name="splashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="4000" />
+
+    <splash src="www/res/screen-land-xhdpi.png" />
+    <splash src="www/res/screen-land-ldpi.png" density="land-ldpi" />
+    <splash src="www/res/screen-land-mdpi.png" density="land-mdpi" />
+    <splash src="www/res/screen-land-hdpi.png" density="land-hdpi" />
+    <splash src="www/res/screen-land-xhdpi.png" density="land-xhdpi" />
+</widget>
